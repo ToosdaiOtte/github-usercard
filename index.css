@@ -141,7 +141,6 @@ body {
   position: absolute;
   bottom: 10%;
   left: 95%;
-  border: 1px solid #000;
   cursor: pointer;
   transform: translate(-50%);
 }
