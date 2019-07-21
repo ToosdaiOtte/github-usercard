@@ -82,14 +82,21 @@ let allCards = document.querySelector('.cards');
 function createCard(userInfo){
   let card = document.createElement('div')
   card.classList.add('card')
+
+  let closed = document.createElement('div')
+  closed.classList.add('close')
+  card.appendChild(closed)
   let profilePic = document.createElement('img')
-  card.appendChild(profilePic)
+  closed.appendChild(profilePic)
+
+  let name = document.createElement('h3')
+  name.classList.add('name')
+  closed.appendChild(name)
+
   let cardInfo = document.createElement('div')
   cardInfo.classList.add('card-info')
   card.appendChild(cardInfo)
-  let name = document.createElement('h3')
-  name.classList.add('name')
-  cardInfo.appendChild(name)
+
   let username = document.createElement('p')
   username.classList.add('username')
   cardInfo.appendChild(username)
@@ -105,6 +112,11 @@ function createCard(userInfo){
   cardInfo.appendChild(following)
   let bio = document.createElement('p')
   cardInfo.appendChild(bio)
+  let publicGists = document.createElement('p')
+  cardInfo.appendChild(publicGists)
+  let button = document.createElement('span');
+  button.classList.add('button');
+  card.appendChild(button)
 
   // Text Content
   profilePic.src = userInfo.avatar_url
@@ -116,6 +128,18 @@ function createCard(userInfo){
   followers.textContent = `Followers: ${userInfo.followers}`
   following.textContent = `Following: ${userInfo.following}`
   bio.textContent = userInfo.bio
+  publicGists.textContent = `Public Gists: ${userInfo.public_gists}`
+  button.textContent = "expand"
+
+  button.addEventListener('click', event => {
+    card.classList.toggle('card-open')
+    // button.textContent = "close"
+    if(card.classList.contains('card-open')) {
+      button.textContent = 'close'
+    } else {
+      button.textContent = 'expand'
+    }
+  })
 
   return card
 }
@@ -126,3 +150,7 @@ function createCard(userInfo){
   luishrd
   bigknell
 */
+
+
+
+

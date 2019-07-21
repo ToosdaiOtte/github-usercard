@@ -92,15 +92,20 @@ body {
 }
 
 .card {
-  width: 100%;
-  padding: 20px;
-  display: flex;
+  margin-bottom: 2%;
+  padding: 0 20px 25px;
+  position: relative;
   border-radius: 5px;
   box-shadow: 0 1px 6px -2px #000;
   background-color: #FFF;
-  margin-bottom: 30px;
+  height: 150px;
+  overflow: hidden;
 }
 
+.close {
+  display: flex;
+  justify-content: space-between;
+}
 .card img {
   width: 150px;
   height: 150px;
@@ -109,7 +114,16 @@ body {
 }
 
 .card .name {
-  font-size: 3.4rem;
+  font-size: 4rem;
+  padding-top: 8%;
+  margin: 0 auto;
+}
+
+.card-info {
+  margin: 1% auto;
+  padding: 2% 25%;
+  width: 85%;
+  box-shadow: 2px 2px 7px;
 }
 
 .card p {
@@ -118,9 +132,22 @@ body {
 }
 
 .card .username {
-  font-size: 1.8rem;
+  font-size: 2rem;
   font-style: italic;
   margin: 3px 0 10px;
+}
+
+.button {
+  position: absolute;
+  bottom: 10%;
+  left: 95%;
+  border: 1px solid #000;
+  cursor: pointer;
+  transform: translate(-50%);
+}
+
+.card-open {
+  height: 350px;
 }
 
 
