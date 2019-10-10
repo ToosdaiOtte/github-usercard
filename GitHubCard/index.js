@@ -50,6 +50,7 @@ followersArray.forEach(user => {
   axios.get(`https://api.github.com/users/${user}`)
     .then(axiosData => {
       const card = createCard(axiosData.data)
+
       const cards = document.querySelector('.cards')
       cards.appendChild(card)
     })
@@ -117,7 +118,7 @@ function createCard(userInfo){
   let button = document.createElement('span');
   button.classList.add('button');
   card.appendChild(button)
-
+ 
   // Text Content
   profilePic.src = userInfo.avatar_url
   name.textContent = userInfo.name
@@ -130,6 +131,10 @@ function createCard(userInfo){
   bio.textContent = userInfo.bio
   publicGists.textContent = `Public Gists: ${userInfo.public_gists}`
   button.textContent = "expand"
+
+
+  // const gistChart = GitHubCalendar(".calendar", `${userInfo}`);
+  // chart.innerHTML = gistChart;
 
   button.addEventListener('click', event => {
     card.classList.toggle('card-open')
@@ -150,7 +155,5 @@ function createCard(userInfo){
   luishrd
   bigknell
 */
-
-
 
 
