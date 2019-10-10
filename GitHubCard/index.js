@@ -3,6 +3,20 @@
            https://api.github.com/users/<your name>
 */
 
+let account = axios.get('https://api.github.com/users/ToosdaiOtte')
+.then((axiosData) => {
+  console.log('data', axiosData);
+  let myInfo = axiosData.data;
+  console.log('UserInfo: ', myInfo)
+
+  const cards = document.querySelector('.cards')
+  const cardInfo = createCard(myInfo)
+  cards.appendChild(cardInfo)
+})
+.catch((err) => {
+  console.log('ERROR', err)
+})
+
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
@@ -24,7 +38,26 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  'tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell',
+];
+
+followersArray.forEach(user => {
+  axios.get(`https://api.github.com/users/${user}`)
+    .then(axiosData => {
+      const card = createCard(axiosData.data)
+
+      const cards = document.querySelector('.cards')
+      cards.appendChild(card)
+    })
+    .catch((err) => {
+      console.log('ERROR', err)
+    })
+})
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -45,7 +78,76 @@ const followersArray = [];
 </div>
 
 */
+let allCards = document.querySelector('.cards');
 
+function createCard(userInfo){
+  let card = document.createElement('div')
+  card.classList.add('card')
+
+  let closed = document.createElement('div')
+  closed.classList.add('close')
+  card.appendChild(closed)
+  let profilePic = document.createElement('img')
+  closed.appendChild(profilePic)
+
+  let name = document.createElement('h3')
+  name.classList.add('name')
+  closed.appendChild(name)
+
+  let cardInfo = document.createElement('div')
+  cardInfo.classList.add('card-info')
+  card.appendChild(cardInfo)
+
+  let username = document.createElement('p')
+  username.classList.add('username')
+  cardInfo.appendChild(username)
+  let location = document.createElement('p')
+  cardInfo.appendChild(location)
+  let profile = document.createElement('p')
+  cardInfo.appendChild(profile)
+  let gitLink = document.createElement('a')
+  cardInfo.appendChild(gitLink)
+  let followers = document.createElement('p')
+  cardInfo.appendChild(followers)
+  let following = document.createElement('p')
+  cardInfo.appendChild(following)
+  let bio = document.createElement('p')
+  cardInfo.appendChild(bio)
+  let publicGists = document.createElement('p')
+  cardInfo.appendChild(publicGists)
+  let button = document.createElement('span');
+  button.classList.add('button');
+  card.appendChild(button)
+ 
+  // Text Content
+  profilePic.src = userInfo.avatar_url
+  name.textContent = userInfo.name
+  username.textContent = userInfo.login
+  location.textContent = userInfo.location
+  const profileLink = userInfo.url
+  gitLink.innerHTML = profileLink.link(userInfo.url)
+  followers.textContent = `Followers: ${userInfo.followers}`
+  following.textContent = `Following: ${userInfo.following}`
+  bio.textContent = userInfo.bio
+  publicGists.textContent = `Public Gists: ${userInfo.public_gists}`
+  button.textContent = "expand"
+
+
+  // const gistChart = GitHubCalendar(".calendar", `${userInfo}`);
+  // chart.innerHTML = gistChart;
+
+  button.addEventListener('click', event => {
+    card.classList.toggle('card-open')
+    // button.textContent = "close"
+    if(card.classList.contains('card-open')) {
+      button.textContent = 'close'
+    } else {
+      button.textContent = 'expand'
+    }
+  })
+
+  return card
+}
 /* List of LS Instructors Github username's: 
   tetondan
   dustinmyers
@@ -53,3 +155,5 @@ const followersArray = [];
   luishrd
   bigknell
 */
+
+
